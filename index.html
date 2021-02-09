@@ -44,12 +44,16 @@
           <ul class="movie-list flx">
             <!-- movie element -->
             <li v-for="movie in movies" class="movie-element">
+              <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster">
               <h3>
                 {{movie.title}}
                 ({{getMovieYear(movie.release_date)}})
               </h3>
               <div>
-                {{movie.original_title}} | [{{movie.original_language}}]
+                <i>{{movie.original_title}}</i>
+              </div>
+              <div>
+                 Language: {{movie.original_language}}
               </div>
               <div>
                 Voto: {{movie.vote_average}}

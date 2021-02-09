@@ -64,8 +64,13 @@ header .container {
 
 .movie-list li {
   width: calc(90% / 5);
-  background-color: rgba(255, 255, 255, 0.1);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
   padding: 15px;
   margin-bottom: 25px;
   border-radius: 15px;
+}
+
+.movie-list img {
+  width: 90%
 }
