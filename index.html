@@ -26,9 +26,9 @@
       <!-- Header -->
       <header>
         <div class="container flx">
-          <div class="logo">
+          <h2 class="logo">
             Boolflix
-          </div>
+          </h2>
           <div class="searchbar">
             <input v-model="searchKey" v-on:keyup.enter="movieSearch">
             <button @click="movieSearch">Cerca</button>
@@ -43,10 +43,16 @@
           <!-- movie list -->
           <ul class="movie-list flx">
             <!-- movie element -->
-            <li v-for="movie in movies" class="">
-              <div>
+            <li v-for="movie in movies" class="movie-element">
+              <h3>
                 {{movie.title}}
                 ({{getMovieYear(movie.release_date)}})
+              </h3>
+              <div>
+                {{movie.original_title}} | [{{movie.original_language}}]
+              </div>
+              <div>
+                Voto: {{movie.vote_average}}
               </div>
             </li>
             <!-- / movie element -->

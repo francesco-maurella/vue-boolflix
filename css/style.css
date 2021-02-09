@@ -10,9 +10,11 @@
 
 .wrapper {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 100%;
+  background-color: #535D65;
   font-family: 'Kanit';
+  font-size: 13px;
   color: #FFF;
 }
 
@@ -38,10 +40,6 @@ header .container {
   outline: none;
 }
 
-main {
-  background-color: #535D65;
-  height: 100%;
-}
 
 .movie-list {
   flex-wrap: wrap;
