@@ -8,6 +8,10 @@
   display: flex;
 }
 
+.kern16 > * {
+  margin-right: 10px;
+}
+
 .wrapper {
   width: 100vw;
   min-height: 100vh;
@@ -36,8 +40,19 @@ header .container {
   color: #DC1A28;
 }
 
-.searchbar input:focus{
+.searchbar input:focus, .searchbar button{
   outline: none;
+}
+
+.searchbar input, .searchbar button{
+  padding: 6px;
+  border: 0;
+  border-radius: 8px;
+}
+
+.searchbar button{
+  color: #C0C0C0;
+  background-color: #DC1A28;
 }
 
 
