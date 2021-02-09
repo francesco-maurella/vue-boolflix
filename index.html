@@ -3,15 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>JAVASCRIPT - VUEJS [Boolflix]</title>
+    <title>HTML/CSS/JAVASCRIPT - VUEJS [Boolflix]</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google Fonts link -->
-
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap" rel="stylesheet">
     <!-- Fontawesome Icons link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
     <!-- VueJS framework link -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- Axios request link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
 
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="icon" href="img/00-ico.png"> -->
@@ -21,7 +23,42 @@
 
     <div id="app" class="wrapper">
 
+      <!-- Header -->
+      <header>
+        <div class="container flx">
+          <div class="logo">
+            Boolflix
+          </div>
+          <div class="searchbar">
+            <input v-model="searchKey" v-on:keyup.enter="movieSearch">
+            <button @click="movieSearch">Cerca</button>
+          </div>
+        </div>
+      </header>
+      <!-- / Header -->
+
+      <!-- Main Content -->
+      <main class="flx">
+        <div class="container flx">
+          <!-- movie list -->
+          <ul class="movie-list flx">
+            <!-- movie element -->
+            <li v-for="movie in movies" class="">
+              <div>
+                {{movie.title}}
+                ({{getMovieYear(movie.release_date)}})
+              </div>
+            </li>
+            <!-- / movie element -->
+          </ul>
+          <!-- / movie list -->
+        </div>
+
+      </main>
+      <!-- / Main Content -->
     </div>
+
+    <script src="js/script.js" charset="utf-8"></script>
 
   </body>
 </html>

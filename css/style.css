@@ -3,3 +3,56 @@
   margin: 0;
   padding: 0;
 }
+
+.flx {
+  display: flex;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  font-family: 'Kanit';
+  color: #FFF;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+header {
+  background-color: #191919;
+}
+
+header .container {
+  justify-content: space-between;
+}
+
+.logo {
+  color: #DC1A28;
+}
+
+.searchbar input:focus{
+  outline: none;
+}
+
+main {
+  background-color: #535D65;
+  height: 100%;
+}
+
+.movie-list {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.movie-list li {
+  width: calc(90% / 5);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  margin-bottom: 25px;
+  border-radius: 15px;
+}
