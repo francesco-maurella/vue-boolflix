@@ -16,8 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/flags.css">
     <!-- <link rel="icon" href="img/00-ico.png"> -->
-  </head>
   </head>
   <body>
 
@@ -52,11 +52,13 @@
               <div>
                 <i>{{movie.original_title}}</i>
               </div>
-              <div>
-                 Language: {{movie.original_language}}
+              <div class="flx centered">
+                 Language: 
+                 <i :class="'phoca-box ' + movie.original_language"></i>
               </div>
               <div>
-                Voto: {{movie.vote_average}}
+                Voto:
+                <i v-for="n in 5" :class="getVote(movie.vote_average, n) + ' fa-star'"></i>
               </div>
             </li>
             <!-- / movie element -->
