@@ -4,6 +4,7 @@ new Vue ({
 
   // DATI
   data : {
+    results : [],
     movies : [],
     tvseries : [],
     query : ''
@@ -13,26 +14,63 @@ new Vue ({
   methods : {
     // Funzione richiamo TMDB Api
     getApi : function(type){
-      return axios.get(
+      const searchIn = type;
+      axios.get(
         'https://api.themoviedb.org/3/search/' + type , {
           params : {
             api_key : 'a7cdee9ef91ea5bb1fa70822158b4b0b',
             query : this.query,
-            language : 'it_IT'
+            language : 'it-IT'
           }
-        })
+        }).then((resp) => {
+          if (searchIn === 'movie') {
+            this.movies = resp.data.results
+          } else if (searchIn === 'tv') {
+            this.tvseries = resp.data.results
+          }
+          this.results = [...this.movies, ...this.tvseries]
+        });
       },
       // Funzione ricerca
-      getSearch : function(){
-        this.getApi('movie').then((resp) => {
-          // creazione lista movies
-          this.movies = resp.data.results
-        });
-        this.getApi('tv').then((resp) => {
-          // creazione lista tv
-          this.tvseries = resp.data.results
-        });
+      getSearch : function(data){
+        this.getApi('movie');
+        this.getApi('tv');
       },
+
+
+/*************************************************************
+NEI METODI SOTTOSTANTI, CHE SONO PRESSOCCHE' UGUALI,
+A DIFFERENZA DI UN ARGOMENTO IN PIU (DATA) NON FUNGE.
+PERCHE? HA A CHE FARE COL THEN?
+**************************************************************
+
+      // Funzione richiamo TMDB Api ---------------
+
+      getApi : function(type, data){
+        axios.get(
+          'https://api.themoviedb.org/3/search/' + type , {
+            params : {
+              api_key : 'a7cdee9ef91ea5bb1fa70822158b4b0b',
+              query : this.query,
+              language : 'it-IT'
+            }
+          }).then((resp) => {
+            data = resp.data.results
+            this.results = [...this.movies, ...this.tvseries]
+          });
+        },
+
+
+        // Funzione ricerca -------------------------
+
+        getSearch : function(){
+          this.getApi('movie', this.movies);
+          this.getApi('tv', this.tvseries);
+        },
+
+****************************************************************/
+
+
       // Funzione voto
       getVote : function(vote, index) {
         const num = Math.ceil(vote / 2);
