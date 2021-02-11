@@ -47,6 +47,8 @@ header .container {
 
 .logo {
   color: #DC1A28;
+  text-transform: uppercase;
+  font-size: 1.8em;
 }
 
 .searchbar input:focus, .searchbar button{
@@ -65,13 +67,20 @@ header .container {
 }
 
 
-.movie-list {
+.search-list-title {
+  font-weight: 300;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #FFF;
+  margin-bottom: 15px;
+}
+
+.search-list ul {
   flex-wrap: wrap;
   justify-content: space-between;
   list-style: none;
 }
 
-.movie-list li {
+.search-list li {
   width: calc(90% / 5);
   text-align: center;
   background-color: rgba(0, 0, 0, 0.3);
@@ -80,18 +89,18 @@ header .container {
   border-radius: 15px;
 }
 
-.movie-list img {
+.search-list img {
   width: 90%
 }
 
-.phoca-box {
+.flag {
   display: block;
   width: 30px;
   height: 20px;
 	position: relative;
 }
 
-.phoca-box:after {
+.flag:after {
   content: '';
   width: 100%;
   height: 100%;

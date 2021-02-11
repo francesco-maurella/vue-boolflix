@@ -5,32 +5,38 @@ new Vue ({
   // DATI
   data : {
     movies : [],
-    searchKey : ''
-
+    tvseries : [],
+    query : ''
   },
 
   // METODI
   methods : {
-    // Funzione cerca movie
-    movieSearch : function(){
-      const self = this;
-
-      axios.get(
-        'https://api.themoviedb.org/3/search/movie?api_key=a7cdee9ef91ea5bb1fa70822158b4b0b&query=titanic')
-        // + this.searchKey)
-        .then(function(resp){
-          // creazione lista movies
-          self.movies = resp.data.results
-        });
+    // Funzione richiamo TMDB Api
+    getApi : function(type){
+      return axios.get(
+        'https://api.themoviedb.org/3/search/' + type , {
+          params : {
+            api_key : 'a7cdee9ef91ea5bb1fa70822158b4b0b',
+            query : this.query,
+            language : 'it_IT'
+          }
+        })
       },
-      // Funzione recupero anno movie
-      getMovieYear : function(data) {
-        return data.slice(0, 4)
+      // Funzione ricerca
+      getSearch : function(){
+        this.getApi('movie').then((resp) => {
+          // creazione lista movies
+          this.movies = resp.data.results
+        });
+        this.getApi('tv').then((resp) => {
+          // creazione lista tv
+          this.tvseries = resp.data.results
+        });
       },
       // Funzione voto
       getVote : function(vote, index) {
         const num = Math.ceil(vote / 2);
-        const starClasses = []
+        const starClasses = [];
         for (var i = 0; i < 5; i++) {
           if (i < num) {
             starClasses.push('fas')
@@ -41,4 +47,5 @@ new Vue ({
         return starClasses[index-1];
       },
     }
+
   });
