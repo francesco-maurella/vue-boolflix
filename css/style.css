@@ -1,3 +1,4 @@
+/* RESET CSS */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,13 +6,15 @@
 }
 
 body {
-  background-color: #535D65;
+  background-color: #000;
   font-family: 'Kanit';
   font-size: 13px;
   line-height: 2em;
   color: #FFF;
 }
+/* / RESET CSS */
 
+/* UTILITY CSS */
 .flx {
   display: flex;
 }
@@ -24,31 +27,37 @@ body {
 .kern16 > * {
   margin-right: 10px;
 }
+/* / UTILITY CSS */
 
+/* APP CONTAINERS */
 .wrapper {
+  background-image: url('../img/00-bg.jpg');
+  background-size: cover;
+  background-position: center;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   max-width: 100%;
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
+.bg-gradient-page{
+  background: linear-gradient(#000, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95));
+  height: 100%;
 }
+
+.container {
+  width: 1200px;
+  margin: auto;
+}
+
+/* / APP CONTAINERS */
 
 header {
-  background-color: #191919;
-}
-
-header .container {
+  padding: 30px 0;
   justify-content: space-between;
 }
 
-.logo {
-  color: #DC1A28;
-  text-transform: uppercase;
-  font-size: 1.8em;
+.logo img {
+  max-height: 50px;
 }
 
 .searchbar input:focus, .searchbar button{
@@ -81,16 +90,47 @@ header .container {
 }
 
 .search-list li {
-  width: calc(90% / 5);
+  width: calc(90% / 4);
+  height: 380px;
+  border: 1px solid transparent;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 15px;
+  border-radius: 20px;
+  overflow: hidden;
   margin-bottom: 25px;
   border-radius: 15px;
+  position: relative;
+  box-shadow: 1px 1px 18px #000;
 }
 
 .search-list img {
-  width: 90%
+  width: 105%;
+}
+
+.search-list li:hover .search-data{
+  opacity: 1;
+}
+
+.search-list li:hover{
+  border: 1px solid #C00000;
+  box-shadow: 2px 2px 30px #000;
+}
+
+.search-list li:hover img {
+  filter: blur(3px);
+}
+
+.search-data {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.95);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  opacity: 0;
+  z-index: 100;
+  transition: 0.5s;
 }
 
 .flag {

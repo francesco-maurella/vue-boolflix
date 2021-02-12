@@ -17,104 +17,58 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flags.css">
-    <!-- <link rel="icon" href="img/00-ico.png"> -->
+    <link rel="icon" href="img/00-ico.png">
   </head>
   <body>
 
     <div id="app" class="wrapper">
+      <div class="bg-gradient-page">
 
-      <!-- Header -->
-      <header>
-        <div class="container flx">
-          <h2 class="logo">
-            Boolflix
-          </h2>
+        <!-- Header -->
+        <header class="container flx">
+          <div class="logo">
+            <img src="img/00-logo.png" alt="Logo">
+          </div>
           <div class="searchbar kern16">
             <input v-model="query" v-on:keyup.enter="getSearch()">
             <button @click="getSearch()">cerca</button>
           </div>
-        </div>
-      </header>
-      <!-- / Header -->
+        </header>
+        <!-- / Header -->
 
-      <!-- Main Content -->
-      <main class="container">
-        <!-- all list -->
-        <div class="search-list">
-          <h2 class="search-list-title">All results</h2>
-          <ul class="flx">
-            <!-- movie element -->
-            <li v-for="movie in results" class="search-element">
-              <img :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="poster">
-              <h3>{{movie.title}} {{movie.name}}</h3>
-              <div>
-                <i>{{movie.original_title}}</i>
-              </div>
-              <div class="flx centered">
-                 Language:
-                 <i :class="'flag ' + movie.original_language"></i>
-              </div>
-              <div>
-                Voto:
-                <i v-for="num in 5" :class="getVote(movie.vote_average, num) + ' fa-star'"></i>
-              </div>
-            </li>
-            <!-- / movie element -->
-          </ul>
-        </div>
-        <!-- / movie list -->
-        <!-- movie list -->
-        <div class="search-list">
-          <h2 class="search-list-title">Films</h2>
-          <ul class="flx">
-            <!-- movie element -->
-            <li v-for="movie in movies" class="search-element">
-              <img :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="poster">
-              <h3>{{movie.title}}</h3>
-              <div>
-                <i>{{movie.original_title}}</i>
-              </div>
-              <div class="flx centered">
-                 Language:
-                 <i :class="'flag ' + movie.original_language"></i>
-              </div>
-              <div>
-                Voto:
-                <i v-for="num in 5" :class="getVote(movie.vote_average, num) + ' fa-star'"></i>
-              </div>
-            </li>
-            <!-- / movie element -->
-          </ul>
-        </div>
-        <!-- / movie list -->
-        <!-- tv list -->
-        <div class="search-list">
-          <h2 class="search-list-title">Serie TV</h2>
-          <ul class="flx">
-            <!-- tv element -->
-            <li v-for="tv in tvseries" class="search-element">
-              <img :src="'https://image.tmdb.org/t/p/w342/' + tv.poster_path" alt="poster">
-              <h3>{{tv.name}}</h3>
-              <div>
-                <i>{{tv.original_title}}</i>
-              </div>
-              <div class="flx centered">
-                Language:
-                <i :class="'flag ' + tv.original_language"></i>
-              </div>
-              <div>
-                Voto:
-                <i v-for="num in 5" :class="getVote(tv.vote_average, num) + ' fa-star'"></i>
-              </div>
-            </li>
-            <!-- / tv element -->
-          </ul>
-        </div>
-        <!-- / tv list -->
-        </div>
+        <!-- Main Content -->
+        <main class="container">
+          <!-- Result list -->
+          <div class="search-list">
+            <h2 class="search-list-title">All results</h2>
+            <ul class="flx">
+              <!-- result element -->
+              <li v-for="movie in results" class="search-element">
+                <img :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="poster">
+                <div class="search-data flx centered">
+                  <h3>{{movie.title}} {{movie.name}}</h3>
+                  <div>
+                    <i>{{movie.original_title}}</i>
+                  </div>
+                  <div class="flx centered">
+                    Language:
+                    <i :class="'flag ' + movie.original_language"></i>
+                  </div>
+                  <div>
+                    Voto:
+                    <i v-for="num in 5" :class="getVote(movie.vote_average, num) + ' fa-star'"></i>
+                  </div>
+                </div>
+              </li>
+              <!-- / result element -->
+            </ul>
+          </div>
+          <!-- / Result list -->
+        </main>
+        <!-- / Main Content -->
 
-      </main>
-      <!-- / Main Content -->
+      </div>
+
     </div>
 
     <script src="js/script.js" charset="utf-8"></script>
