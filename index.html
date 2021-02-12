@@ -22,56 +22,55 @@
   <body>
 
     <div id="app" class="wrapper">
-      <div class="bg-gradient-page">
+      <div class="bg-gradient"></div>
+      <!-- Header -->
+      <header class="container flx">
+        <div class="logo">
+          <img src="img/00-logo.png" alt="Logo">
+        </div>
+        <div class="searchbar kern16">
+          <input v-model="query" v-on:keyup.enter="getSearch()">
+          <button @click="getSearch()">cerca</button>
+        </div>
+      </header>
+      <!-- / Header -->
 
-        <!-- Header -->
-        <header class="container flx">
-          <div class="logo">
-            <img src="img/00-logo.png" alt="Logo">
-          </div>
-          <div class="searchbar kern16">
-            <input v-model="query" v-on:keyup.enter="getSearch()">
-            <button @click="getSearch()">cerca</button>
-          </div>
-        </header>
-        <!-- / Header -->
-
-        <!-- Main Content -->
-        <main class="container">
-          <!-- Result list -->
-          <div class="search-list">
-            <h2 class="search-list-title">All results</h2>
-            <ul class="flx">
-              <!-- result element -->
-              <li v-for="movie in results" class="search-element">
-                <img :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="poster">
-                <div class="search-data flx centered">
-                  <h3>{{movie.title}} {{movie.name}}</h3>
-                  <div>
-                    <i>{{movie.original_title}}</i>
-                  </div>
-                  <div class="flx centered">
-                    Language:
-                    <i :class="'flag ' + movie.original_language"></i>
-                  </div>
-                  <div>
-                    Voto:
-                    <i v-for="num in 5" :class="getVote(movie.vote_average, num) + ' fa-star'"></i>
-                  </div>
+      <!-- Main Content -->
+      <main class="container">
+        <!-- Result list -->
+        <div class="search-list">
+          <h2 class="search-list-title">All results</h2>
+          <ul class="flx">
+            <!-- result element -->
+            <li v-for="item in results" class="search-element">
+              <img v-if="item.poster_path" :src="'https://image.tmdb.org/t/p/w342/' + item.poster_path" alt="poster">
+              <img v-else src="img/01-poster.jpg" alt="poster">
+              <div class="search-data flx centered">
+                <h3 v-if="item.title">{{item.title}}</h3>
+                <h3 v-if="item.name">{{item.name}}</h3>
+                <div>
+                  <i v-if="item.title">{{item.original_title}}</i>
+                  <i v-if="item.name">{{item.original_name}}</i>
                 </div>
-              </li>
-              <!-- / result element -->
-            </ul>
-          </div>
-          <!-- / Result list -->
-        </main>
-        <!-- / Main Content -->
-
-      </div>
-
+                <div class="flx centered">
+                  Language:
+                  <i :class="'flag ' + item.original_language"></i>
+                </div>
+                <div>
+                  Voto:
+                  <i v-for="num in 5" :class="getVote(item.vote_average, num) + ' fa-star'"></i>
+                </div>
+              </div>
+            </li>
+            <!-- / result element -->
+          </ul>
+        </div>
+        <!-- / Result list -->
+      </main>
+      <!-- / Main Content -->
     </div>
 
     <script src="js/script.js" charset="utf-8"></script>
 
   </body>
-</html>
+  </html>

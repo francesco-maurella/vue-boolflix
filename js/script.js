@@ -5,8 +5,6 @@ new Vue ({
   // DATI
   data : {
     results : [],
-    movies : [],
-    tvseries : [],
     query : ''
   },
 
@@ -23,12 +21,7 @@ new Vue ({
             language : 'it-IT'
           }
         }).then((resp) => {
-          if (searchIn === 'movie') {
-            this.movies = resp.data.results
-          } else if (searchIn === 'tv') {
-            this.tvseries = resp.data.results
-          }
-          this.results = [...this.movies, ...this.tvseries]
+          this.results = [...this.results, ...resp.data.results]
         });
       },
       // Funzione ricerca
