@@ -26,6 +26,7 @@ new Vue ({
       },
       // Funzione ricerca
       getSearch : function(data){
+        this.results = [];
         this.getApi('movie');
         this.getApi('tv');
       },
