@@ -30,9 +30,9 @@
         </div>
         <nav class="searchbar flx centered kern16">
           <select v-show="results.length > 0" v-model="selected">
-            <option disabled value="">Filter by Gender</option>
-            <option value="">All</option>
-            <option v-for="genre in genres">{{genre.name}}</option>
+            <option disabled value="All">Filter by Gender</option>
+            <option value="All">All</option>
+            <option v-for="genre in myGenres()">{{genre.name}}</option>
           </select>
           <div class="searchbar-go">
             <input v-model="query" v-on:keyup.enter="getSearch()" placeholder="Inserisci un titolo">
@@ -46,7 +46,7 @@
       <main class="container">
         <!-- Result list -->
         <div class="search-list">
-          <h2 v-if="results.length > 0" class="search-list-title">All results</h2>
+          <h2 v-if="results.length > 0" class="search-list-title">{{selected}} results</h2>
           <h2 v-if="noResults" class="search-list-title">No results</h2>
           <h2 v-if="error" class="search-list-title">Error</h2>
           <ul class="flx">

@@ -12,7 +12,7 @@ new Vue ({
     genres : [],
     cast : '',
     query : '',
-    selected : ''
+    selected : 'All'
   },
 
   // METODI
@@ -59,6 +59,20 @@ new Vue ({
           }
         },
         // Funzione Visualizza Se
+        myGenres : function(item){
+          let id;
+          const myGenres = [];
+          this.genres.forEach((element) => {
+            id = element.id
+            this.results.forEach((item) => {
+              if (item.genre_ids.includes(id) && !myGenres.includes(element)) {
+                myGenres.push(element)
+              }
+            });
+          });
+          return myGenres
+        },
+        // Funzione Visualizza Se
         showIf : function(item){
           let id;
           this.genres.forEach((element) => {
@@ -68,7 +82,7 @@ new Vue ({
             }
           })
 
-          return item['genre_ids'].includes(id) || this.selected === ''
+          return item['genre_ids'].includes(id) || this.selected === 'All'
         },
         // Funzione Cast
         showCast : function(id){
