@@ -6,6 +6,8 @@ new Vue ({
   data : {
     apiUrl : 'https://api.themoviedb.org/3/',
     apiKey : 'a7cdee9ef91ea5bb1fa70822158b4b0b',
+    error : false,
+    noResults : false,
     results : [],
     genres : [],
     cast : '',
@@ -26,7 +28,13 @@ new Vue ({
           }
         }).then((resp) => {
           this.results = [...this.results, ...resp.data.results]
-        });
+          if (this.results.length < 1) {
+            this.noResults = true;
+          }
+        })
+        .catch((error) => {
+          this.error = true;
+      })
         axios.get(
           this.apiUrl + 'genre/' + type + '/list', {
             params : {
@@ -44,8 +52,11 @@ new Vue ({
         getSearch : function(data){
           this.results = [];
           this.genres = [];
-          this.getApi('movie');
-          this.getApi('tv');
+          this.error = false;
+          if (this.query != '') {
+            this.getApi('movie');
+            this.getApi('tv');
+          }
         },
         // Funzione Visualizza Se
         showIf : function(item){

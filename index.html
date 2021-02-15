@@ -45,8 +45,10 @@
       <!-- Main Content -->
       <main class="container">
         <!-- Result list -->
-        <div v-show="results.length > 0" class="search-list">
-          <h2 class="search-list-title">All results</h2>
+        <div class="search-list">
+          <h2 v-if="results.length > 0" class="search-list-title">All results</h2>
+          <h2 v-if="noResults" class="search-list-title">No results</h2>
+          <h2 v-if="error" class="search-list-title">Error</h2>
           <ul class="flx">
             <!-- result element -->
             <li v-if="showIf(result)" v-for="result in results" class="search-element" @mouseenter="showCast(result.id)">
