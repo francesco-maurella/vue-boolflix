@@ -29,6 +29,11 @@
           <img src="img/00-logo.png" alt="Logo">
         </div>
         <div class="searchbar kern16">
+          <select v-model="selected">
+            <option disabled value="">Filter by Gender</option>
+            <option value="">All</option>
+            <option v-for="genre in genres">{{genre.name}}</option>
+          </select>
           <input v-model="query" v-on:keyup.enter="getSearch()">
           <button @click="getSearch()">cerca</button>
         </div>
@@ -38,27 +43,33 @@
       <!-- Main Content -->
       <main class="container">
         <!-- Result list -->
-        <div class="search-list">
+        <div v-show="results.length > 0" class="search-list">
           <h2 class="search-list-title">All results</h2>
           <ul class="flx">
             <!-- result element -->
-            <li v-for="item in results" class="search-element">
-              <img v-if="item.poster_path" :src="'https://image.tmdb.org/t/p/w342/' + item.poster_path" alt="poster">
-              <img v-else src="img/01-poster.jpg" alt="poster">
+            <li v-if="showIf(result)" v-for="result in results" class="search-element" @mouseenter="showCast(result.id)">
+              <div class="search-poster">
+                <img v-if="result.poster_path" :src="'https://image.tmdb.org/t/p/w342/' + result.poster_path" alt="poster">
+                <h2 v-else>{{result.title}} {{result.name}}</h2>
+              </div>
               <div class="search-data flx centered">
-                <h3 v-if="item.title">{{item.title}}</h3>
-                <h3 v-if="item.name">{{item.name}}</h3>
+                <h3 v-if="result.title">{{result.title}}</h3>
+                <h3 v-if="result.name">{{result.name}}</h3>
                 <div>
-                  <i v-if="item.title">{{item.original_title}}</i>
-                  <i v-if="item.name">{{item.original_name}}</i>
+                  <i v-if="result.title">{{result.original_title}}</i>
+                  <i v-if="result.name">{{result.original_name}}</i>
                 </div>
+                <div>
+                  <span v-if="inGenres(result, genre)" v-for="genre in genres">{{genre.name}} | </span>
+                </div>
+                <div>Cast: {{cast}}</div>
                 <div class="flx centered">
                   Language:
-                  <i :class="'flag ' + item.original_language"></i>
+                  <i :class="'flag ' + result.original_language"></i>
                 </div>
                 <div>
                   Voto:
-                  <i v-for="num in 5" :class="getVote(item.vote_average, num) + ' fa-star'"></i>
+                  <i v-for="num in 5" :class="getVote(result.vote_average, num) + ' fa-star'"></i>
                 </div>
               </div>
             </li>
@@ -73,4 +84,4 @@
     <script src="js/script.js" charset="utf-8"></script>
 
   </body>
-  </html>
+</html>

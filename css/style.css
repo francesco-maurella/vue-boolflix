@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Kanit';
-  font-size: 13px;
+  font-size: 12px;
   line-height: 2em;
   color: #FFF;
 }
@@ -33,7 +33,7 @@ body {
   width: 100vw;
   max-width: 100%;
   min-height: 100vh;
-  background: linear-gradient(#000, rgba(0, 0, 0, 0.7), #3B4247);
+  background: linear-gradient(#000, rgba(0, 0, 0, 0.7), #4C5154);
   background-size: 100vw 100vh;
   background-repeat: no-repeat;
   position: relative;
@@ -60,17 +60,16 @@ body {
 
 .bg-gradient:after {
   height: calc(100% - 100vh);
-  background: linear-gradient(#3B4247, #000);
+  background: linear-gradient(#4C5154, #0F0F0F);
 }
 
 .container {
-  max-width: 1300px;
-  margin: auto;
+  padding: 30px;
 }
 /* / APP CONTAINERS */
 
 header {
-  padding: 30px 0;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -93,7 +92,6 @@ header {
   background-color: #DC1A28;
 }
 
-
 .search-list-title {
   font-weight: 300;
   padding-bottom: 15px;
@@ -107,18 +105,32 @@ header {
 }
 
 .search-list li {
-  width: calc(100% / 4 - 30px);
-  margin: 0 15px;
+  width: calc(100% / 5 - 10px);
+  margin: 0 5px;
   text-align: center;
-  border-radius: 20px;
   overflow: hidden;
   margin-bottom: 25px;
-  border-radius: 5px;
   position: relative;
-  box-shadow: 1px 1px 10px #000;
+  box-shadow: 1px 1px 24px #000;
+  cursor: pointer;
 }
 
-.search-list img {
+.search-poster {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-image: url('../img/01-poster.jpg');
+  background-size: cover;
+}
+
+.search-poster h2{
+  padding-top: 40%;
+  color: #DC1A28;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 10px #000;
+}
+
+.search-poster img{
   width: 100%;
   min-height: 100%;
 }
@@ -128,10 +140,10 @@ header {
 }
 
 .search-list li:hover{
-  box-shadow: 2px 2px 30px #000;
+  box-shadow: 0 0 12px rgba(128,0,0,0.8)
 }
 
-.search-list li:hover img {
+.search-list li:hover .search-poster {
   filter: blur(3px);
 }
 
@@ -140,10 +152,9 @@ header {
   height: 100%;
   flex-direction: column;
   box-shadow: inset 0 0 150px #000;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.85);
   position: absolute;
   top: 0;
-  left: 0;
   padding: 15px;
   opacity: 0;
   z-index: 100;
@@ -152,9 +163,9 @@ header {
 
 .flag {
   display: block;
-  width: 30px;
+  width: 20px;
   height: 20px;
-	position: relative;
+  position: relative;
 }
 
 .flag:after {
