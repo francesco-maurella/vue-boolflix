@@ -28,15 +28,17 @@
         <div class="logo">
           <img src="img/00-logo.png" alt="Logo">
         </div>
-        <div class="searchbar kern16">
-          <select v-model="selected">
+        <nav class="searchbar flx centered kern16">
+          <select v-show="results.length > 0" v-model="selected">
             <option disabled value="">Filter by Gender</option>
             <option value="">All</option>
             <option v-for="genre in genres">{{genre.name}}</option>
           </select>
-          <input v-model="query" v-on:keyup.enter="getSearch()">
-          <button @click="getSearch()">cerca</button>
-        </div>
+          <div class="searchbar-go">
+            <input v-model="query" v-on:keyup.enter="getSearch()" placeholder="Inserisci un titolo">
+            <i @click="getSearch()" class="fas fa-search"></i>
+          </div>
+        </nav>
       </header>
       <!-- / Header -->
 
