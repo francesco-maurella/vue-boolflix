@@ -32,7 +32,7 @@
           <select v-show="results.length > 0" v-model="selected">
             <option disabled value="All">Filter by Gender</option>
             <option value="All">All</option>
-            <option v-for="genre in myGenres()">{{genre.name}}</option>
+            <option v-for="genre in genres">{{genre.name}}</option>
           </select>
           <div class="searchbar-go">
             <input v-model="query" v-on:keyup.enter="getSearch()" placeholder="Inserisci un titolo">
@@ -51,7 +51,7 @@
           <h2 v-if="error" class="search-list-title">Error</h2>
           <ul class="flx">
             <!-- result element -->
-            <li v-if="showIf(result)" v-for="result in results" class="search-element" @mouseenter="showCast(result.id)">
+            <li v-if="showIf(result)" v-for="result in results" class="search-element" @mouseenter="thisCast(result)">
               <div class="search-poster">
                 <img v-if="result.poster_path" :src="'https://image.tmdb.org/t/p/w342/' + result.poster_path" alt="poster">
                 <h2 v-else>{{result.title}} {{result.name}}</h2>
@@ -66,7 +66,7 @@
                 <div>
                   <span v-if="inGenres(result, genre)" v-for="genre in genres">{{genre.name}} | </span>
                 </div>
-                <div>Cast: {{cast}}</div>
+                <div v-if="cast">Cast: {{cast}}</div>
                 <div class="flx centered">
                   Language:
                   <i :class="'flag ' + result.original_language"></i>

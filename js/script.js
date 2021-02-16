@@ -5,115 +5,106 @@ new Vue ({
   // DATI
   data : {
     apiUrl : 'https://api.themoviedb.org/3/',
-    apiKey : 'a7cdee9ef91ea5bb1fa70822158b4b0b',
+    params : {
+      api_key : 'a7cdee9ef91ea5bb1fa70822158b4b0b',
+      language : 'it-IT'
+    },
     error : false,
     noResults : false,
     results : [],
     genres : [],
-    cast : '',
     query : '',
+    cast : '',
     selected : 'All'
   },
 
   // METODI
   methods : {
-    // Funzione richiamo TMDB Api
-    getApi : function(type){
-      axios.get(
-        this.apiUrl + 'search/' + type , {
-          params : {
-            api_key : this.apiKey,
-            query : this.query,
-            language : 'it-IT'
-          }
-        }).then((resp) => {
-          this.results = [...this.results, ...resp.data.results]
-          if (this.results.length < 1) {
-            this.noResults = true;
-          }
-        })
-        .catch((error) => {
-          this.error = true;
-      })
-        axios.get(
-          this.apiUrl + 'genre/' + type + '/list', {
-            params : {
-              api_key : this.apiKey,
-            }
-          }).then((resp) => {
-            resp.data.genres.forEach((element) => {
-              if (!this.genres.includes(element)) {
-                this.genres.push(element)
-              }
+    getApi : function(type) {
+      this.params.query = this.query;
+      axios // richieste axios multiple
+      .all([
+        axios.get( // richiamo api ricerca
+          this.apiUrl + 'search/' + type , {
+            params : this.params
+          }),
+          axios.get( // richiamo api lista generi
+            this.apiUrl + 'genre/' + type + '/list', {
+              params : this.params
+            })
+          ])
+          .then(axios.spread((results, genres) => {
+            // lista risultati
+            this.results = [...this.results, ...results.data.results];
+            // se i risultati sono zero
+            if (this.results.length === 0) {
+              this.noResults = true;
+            };
+            // lista generi dinamica ad ogni query
+            genres.data.genres.forEach((element) => {
+              this.results.forEach((item) => {
+                if (item.genre_ids.includes(element.id)
+                && !this.genres.includes(element)) {
+                  this.genres.push(element);
+                }
+              });
             });
-          });
+          }));
         },
+
         // Funzione ricerca
-        getSearch : function(data){
+        getSearch : function(){
+          // azzeramento valori in data
           this.results = [];
           this.genres = [];
           this.error = false;
+          // parte richiesta axios se la query non è vuota
           if (this.query != '') {
             this.getApi('movie');
             this.getApi('tv');
           }
         },
-        // Funzione Visualizza Se
-        myGenres : function(item){
-          let id;
-          const myGenres = [];
-          this.genres.forEach((element) => {
-            id = element.id
-            this.results.forEach((item) => {
-              if (item.genre_ids.includes(id) && !myGenres.includes(element)) {
-                myGenres.push(element)
-              }
-            });
-          });
-          return myGenres
-        },
+
         // Funzione Visualizza Se
         showIf : function(item){
           let id;
           this.genres.forEach((element) => {
-            if (element.name === this.selected) {
-              console.log(element.id)
-              id = element.id
-            }
+            if (element.name === this.selected) id = element.id
           })
-
           return item['genre_ids'].includes(id) || this.selected === 'All'
         },
-        // Funzione Cast
-        showCast : function(id){
-          const cast = [];
+
+        // Funzione Questo Cast
+        thisCast : function(item){
+          this.cast = false;
+          let type = (item.title) ? 'movie/' : 'tv/'; // tipologìa item
+          // richiesta cast in base all'item
           axios.get(
-            this.apiUrl + 'movie/' + id + '/credits', {
-              params : {
-                api_key : this.apiKey,
-                language : 'en-US'
-              }
-            }).then((resp) => {
+            this.apiUrl + type + item.id + '/credits',
+            {params : this.params})
+            .then((resp) => {
+              let cast = [];
               resp.data.cast.forEach((element) => {
-                cast.push(element.name)
+                cast.push(element.name) // nomi in cast
               });
-              this.cast = cast.splice(0, 5).join(', ')
+              // stringa finale: primi cinque elementi del cast appena popolato
+              this.cast = cast.splice(0, 5).join(', ');
             });
           },
-          // Funzione generi
+
+          // Funzione Visibilità in base al genere
           inGenres : function(array, element){
-            return array.genre_ids.includes(element.id)
+            return array.genre_ids.includes(element.id);
           },
-          // Funzione voto
+
+          // Funzione Voto
           getVote : function(vote, index) {
             const num = Math.ceil(vote / 2);
             const starClasses = [];
+            // classi voto/stella variabili in base al voto
             for (var i = 0; i < 5; i++) {
-              if (i < num) {
-                starClasses.push('fas')
-              } else {
-                starClasses.push('far')
-              }
+              (i < num) ?
+              starClasses.push('fas') : starClasses.push('far');
             }
             return starClasses[index-1];
           },
